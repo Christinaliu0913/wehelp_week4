@@ -40,18 +40,20 @@ async def signin_post(req: Request, username: str = Form(default=""), password: 
     if not agreement:
         return RedirectResponse(url="/", status_code=303)#避免重複提交表單數據，303 See Other 表示原始請求已經被處理完成，客户端應該重新定向，並使用 GET 方法來獲取重定向後的資源。
     if not username or not password:
-        return RedirectResponse(url="/error?message=請輸入帳號或密碼")
+        return RedirectResponse(url="/error?message=請輸入帳號或密碼", status_code=303)
     if username != "test" or password != "test":
-        return RedirectResponse(url="/error?message=您的帳號或密碼不正確")
+        return RedirectResponse(url="/error?message=您的帳號或密碼不正確", status_code=303)
     user_logged_in(req)
     return RedirectResponse(url="/member", status_code=303) 
     
 
 
 # 顯示不同錯誤的消息
-@app.post("/error", response_class=HTMLResponse)
-async def error(req: Request, message: str = ""):
+@app.get("/error", response_class=HTMLResponse)
+async def error(req: Request, message: str = None):
     return templates.TemplateResponse("error.html", {"request": req, "message": message})
+
+
 
 # 會員頁面限制只有登入狀態才行登入
 @app.get("/member", response_class=HTMLResponse)
