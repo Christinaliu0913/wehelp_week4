@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>登入頁面</title>
+        <link rel="stylesheet" type='text/css' href="../static/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body >
+        <div class="title">
+            <h1>歡迎光臨，請輸入帳號密碼</h1>
+        </div>
+        <div class="register">
+            <form id='signup'class="register-inner" action="/signin" method="post">
+                <h3>登入系統</h3> 
+                <div class="inner-box">帳號<input type="text" id='username' name="username"placeholder="Username"></div>
+                <div class="inner-box">密碼<input type="password" id='password' name="password"placeholder="Password"></div>
+                <div class="agreement"><label>同意條款<input type="checkbox" id="agreement" name="agreement"></label></div>
+                <div class="btn"><button type="submit" >登入</button></div>
+            </form>  
+        </div>
+        
+
+        <script>
+            var signupterm = document.getElementById('signup');
+            function agreement(){
+                var checkbox=document.getElementById('agreement');
+                if(!checkbox.checked){
+                    alert('請勾選同意條款');
+                    return false;
+                }
+                return true;
+            }
+            signupterm.addEventListener('submit', agreement,false);
+
+            
+        </script>
+        
+    </body>
+    
+    
+</html>
